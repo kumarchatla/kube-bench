@@ -4,13 +4,17 @@ kind: Deployment
 metadata:
   name: kube-bench
 spec:
+  revisionHistoryLimit: 0
+  replicas: 1
+  strategy:
+     type: RollingUpdate
+  selector:
+    matchLabels:
+      Name: kube-bench
   template:
     metadata:
       labels:
         Name: kube-bench
-      selector:
-        matchLabels:
-         Name: kube-bench
     spec:
       hostPID: true
       containers:
