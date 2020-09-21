@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       labels:
-        app: kube-bench
+        Name: kube-benc
     spec:
       hostPID: true
       containers:
@@ -32,7 +32,7 @@ spec:
             - name: usr-bin
               mountPath: /usr/local/mount-from-host/bin
               readOnly: true
-      restartPolicy: Never
+      restartPolicy: Always
       volumes:
         - name: var-lib-etcd
           hostPath:
