@@ -1,10 +1,15 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  Name: kube-bench
+  name: kube-bench
+  namespace: nmsp-dhs-csms-dev1
   labels:
     Name: kube-bench
+    Agency: DHS
+    Application: csww
+    Environment: DEV1
+    Purpose: kube-Deployment
+    Program: csms
 spec:
   revisionHistoryLimit: 0
   replicas: 1
@@ -17,6 +22,8 @@ spec:
     metadata:
       labels:
         Name: kube-bench
+        Environment: DEV1
+        Purpose: kube-Deployment
     spec:
       hostPID: true
       containers:
