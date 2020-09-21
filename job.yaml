@@ -2,7 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kube-bench
+  Name: kube-bench
+  labels:
+    Name: kube-bench
 spec:
   revisionHistoryLimit: 0
   replicas: 1
