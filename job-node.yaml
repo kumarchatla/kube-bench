@@ -1,17 +1,38 @@
 ---
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: kube-bench-node
+  name: kube-bench
+  labels:
+    Name: kube-bench
+    Agency: DHS
+    Application: csww
+    Environment: DEV1
+    Purpose: kube-Deployment
+    Program: csms
 spec:
+  revisionHistoryLimit: 0
+  replicas: 1
+  strategy:
+     type: RollingUpdate
+  selector:
+    matchLabels:
+      Name: kube-bench
   template:
+    metadata:
+      labels:
+        Name: kube-bench
+        Environment: DEV1
+        Purpose: kube-Deployment
     spec:
-      hostPID: true
-      containers:
-        - name: kube-bench
-          image: aquasec/kube-bench:latest
-          command: ["kube-bench", "node"]
-          volumeMounts:
+      template:
+        spec:
+          hostPID: true
+          containers:
+            - name: kube-bench
+              image: aquasec/kube-bench:latest
+              command: ["kube-bench", "node"]
+              volumeMounts:
             - name: var-lib-kubelet
               mountPath: /var/lib/kubelet
               readOnly: true
@@ -26,7 +47,7 @@ spec:
             - name: usr-bin
               mountPath: /usr/local/mount-from-host/bin
               readOnly: true
-      restartPolicy: Never
+      restartPolicy: Always
       volumes:
         - name: var-lib-kubelet
           hostPath:
